@@ -10,6 +10,7 @@ public class HexType
     float factorFire;
     bool canGoThrough;
     Transform prefab;
+    List<Transform> currentPrefabs = new List<Transform>();
 
     public HexType(int typeId, string name, float tickFireChanse, float factorFire, bool canGoThrough)
     {
@@ -19,6 +20,12 @@ public class HexType
         this.factorFire = factorFire;
         this.canGoThrough = canGoThrough;
         this.prefab = GridGenerator.hexsPrefabs[typeId];
+        foreach (Transform child in prefab)
+        {
+            Debug.Log(child);
+            currentPrefabs.Add(child);
+        }
+
     }
 
     public int TypeId { get => typeId; }
@@ -27,4 +34,5 @@ public class HexType
     public float FactorFire { get => factorFire; }
     public bool CanGoThrough { get => canGoThrough; }
     public Transform Prefab { get => prefab; }
+    public List<Transform> CurrentPrefabs { get => currentPrefabs; }
 }

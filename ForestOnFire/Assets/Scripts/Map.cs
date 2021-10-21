@@ -39,6 +39,7 @@ public class Map
             }
         }
         hexsArray[level][level] = new Hexagon(level, level, 0);
+        hexsArray[level][level].isBusy = true;
 
         for (int i = 0; i < hexsArray.Length; i++)
         {
@@ -48,7 +49,7 @@ public class Map
                 hex.CubeX = i - level;
                 if (i <= level)
                 {
-                    hex.CubeZ = j - hexsArray[i].Length + (level + 1);// + tempLenght;                
+                    hex.CubeZ = j - hexsArray[i].Length + (level + 1);
                 }
                 else
                 {
@@ -57,6 +58,8 @@ public class Map
                 hex.CubeY = -hex.CubeX - hex.CubeZ;
             }
         }
+
+        
     }
 
     public Hexagon findHexagon(int x, int y, int z)
@@ -74,7 +77,7 @@ public class Map
         return null;
     }
 
-    public Hexagon[] findNeighbors(Hexagon hex)
+    public List<Hexagon> findNeighbors(Hexagon hex)
     {
         int x = hex.CubeX, y = hex.CubeY, z = hex.CubeZ;
         Hexagon[] temp =
@@ -96,6 +99,6 @@ public class Map
                 list.Add(temp[i]);
             }
         }
-        return list.ToArray();        
+        return list;        
     }
 }

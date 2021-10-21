@@ -70,7 +70,8 @@ public class GridGenerator : MonoBehaviour
             for (int x = 0; x < currentLenght; x++)
             {
                 Hexagon currentHex = currentMap.hexsArray[y][x];
-                Transform hex = Instantiate(currentHex.Type.Prefab) as Transform;
+                Transform[]type = currentHex.Type.CurrentPrefabs.ToArray();
+                Transform hex = Instantiate(type[Random.Range(0, type.Length)]) as Transform;
                 hex.GetComponent<GameInfo>().hex = currentHex;
                 currentHex.model = hex;
                 hex.Rotate(0, Random.Range(0, 5) * 60, 0);
@@ -81,8 +82,9 @@ public class GridGenerator : MonoBehaviour
             }
 
         }
-    }
+        currentMap.hexsArray[gridLevel][gridLevel].model.rotation = new Quaternion(0, 0, 0, 0);
 }
+} 
 
 
 

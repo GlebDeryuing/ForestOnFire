@@ -253,8 +253,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7634534210295205744}
   - component: {fileID: 7552481469982049480}
-  - component: {fileID: 7667649079770144322}
   - component: {fileID: 472857402525026038}
+  - component: {fileID: 656139786933977682}
   m_Layer: 0
   m_Name: field
   m_TagString: Untagged
@@ -318,19 +318,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!135 &7667649079770144322
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7113577202352313802}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &472857402525026038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,6 +330,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af59ce080ac642d4c843f1d1787e2292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &656139786933977682
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7113577202352313802}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8073111309723547105
 GameObject:
   m_ObjectHideFlags: 0
