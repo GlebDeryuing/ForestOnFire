@@ -8,6 +8,11 @@ TagManager:
   - grid_layer
   - controller
   - players
+  - daysettings
+  - daybg
+  - graphicsettings
+  - graphicbg
+  - diffsettings
   layers:
   - Default
   - TransparentFX
