@@ -18,7 +18,7 @@ public class infoReciever : MonoBehaviour
             light.color = Color.white;
             return;
         }
-        light.color = new Color32(100, 100, 100, 255); 
+        light.color = new Color32(150, 150, 150, 255); 
         bgday.SetActive(false);
         bgnight.SetActive(true);
     }

@@ -11,14 +11,9 @@ public class Play : MonoBehaviour
 
     public GameObject diff;
     public GameObject diffbg;
-    private Button[] allDiffs = new Button[3];
+    public Button[] allDiffs = new Button[3];
     void Start()
-    {
-        GameObject[] allDiffsGO = GameObject.FindGameObjectsWithTag("diffsettings");
-        for (int i = 0; i < allDiffsGO.Length; i++)
-        {
-            allDiffs.SetValue(allDiffsGO[i].GetComponent<Button>(), i);
-        }
+    {      
         PlayerPrefs.SetInt("Difficulty", 2);
         playmenu.SetActive(false);
     }

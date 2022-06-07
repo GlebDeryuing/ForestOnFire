@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class stepController : MonoBehaviour
 {
     static public int SCORE = 0;
-    static public bool WIN = false;
+    public Text steps;
+    static int stepCounter = 0;
     public GameObject winScreen;
     public Text winText;
+    public static bool canRotate = false;
 
     static int canBurn = 0;
     static int canFire = 0;
@@ -18,6 +20,7 @@ public class stepController : MonoBehaviour
 
     public Animator infoPanelAnimator;
     public Text infoText;
+    static bool hasChanged = true;
 
     static bool isAvalible = true;
     public Transform player;
@@ -48,6 +51,14 @@ public class stepController : MonoBehaviour
 
     private void Start()
     {
+        canBurn = 0;
+        canFire = 0;
+        burned = 0;
+        inFire = 0;
+        fired = false;
+        wait = 0;
+        stepCounter = 0;
+        canRotate = false;
         statisticUpdate(canFireText, burnedText, inFireText);
         map = GameObject.FindGameObjectWithTag("Grid").GetComponent<GridGenerator>().currentMap;
         position = player.position;
@@ -88,6 +99,8 @@ public class stepController : MonoBehaviour
         hex.effect = model;
         model.parent = effects;
         model.position = pos;
+
+        statisticUpdate(canFireText, burnedText, inFireText);
     }
     public void listSteps(Vector3[] positions, Hexagon[] hexs)
     {
@@ -123,6 +136,10 @@ public class stepController : MonoBehaviour
 
     public void fireStep()
     {
+        hasChanged = true;
+        stepCounter++;
+
+        List<Hexagon> potentialBurn = new List<Hexagon>();
         for (int i = 0; i < map.hexsArray.Length; i++)
         {
             for (int j = 0; j < map.hexsArray[i].Length; j++)
@@ -135,6 +152,10 @@ public class stepController : MonoBehaviour
                     {
                         chanse *= neighbor.Type.FactorFire;
                         if (neighbor.effect != null) chanse *= 3;
+                        if (chanse > 0 && !map.hexsArray[i][j].isBusy)
+                        {
+                            potentialBurn.Add(map.hexsArray[i][j]);
+                        }
                     }
                     if (Random.Range(0, 1.0f) < chanse && !map.hexsArray[i][j].isBusy)
                     {
@@ -149,7 +170,7 @@ public class stepController : MonoBehaviour
                         infoSay("HEX " + i + "/" + j + " caught fired due to an " + eventsReasons[Random.Range(0, eventsReasons.Length - 1)] + ".", infoText, infoPanelAnimator);
                     }
                 }
-                else if (map.hexsArray[i][j].eventState!=null&&map.hexsArray[i][j].eventState.currentType.name == "fire")
+                else if (map.hexsArray[i][j].effect != null&&map.hexsArray[i][j].eventState.currentType.name == "fire")
                 {
                     map.hexsArray[i][j].eventState.step -= 1;
                     if (map.hexsArray[i][j].eventState.step < 1)
@@ -168,7 +189,27 @@ public class stepController : MonoBehaviour
                         for (int k = 0; k < map.hexsArray[i][j].model.childCount; k++)
                         {
                             Transform child = map.hexsArray[i][j].model.GetChild(k);
-                            child.gameObject.GetComponent<MeshRenderer>().material = burned_material;
+                            Material[] temp = new Material[1];
+                            temp[0] = burned_material;
+                            try
+                            {
+                                child.gameObject.GetComponent<Renderer>().sharedMaterials = temp;
+                            }
+                            catch (MissingComponentException ex)
+                            {
+                                try
+                                {
+                                    for (int m = 0; m < child.childCount; m++)
+                                    {
+                                        child.GetChild(m).gameObject.GetComponent<Renderer>().sharedMaterials = temp;
+                                    }
+                                }
+                                catch (MissingComponentException ex2)
+                                {
+                                    return;
+                                }
+                                
+                            }
                         }
 
                     }
@@ -177,30 +218,31 @@ public class stepController : MonoBehaviour
         }
         if (inFire < 1)
         {
-            Hexagon hex = null;
-            while (hex == null)
-            {
-                int i = Random.Range(0, map.hexsArray.Length - 1);
-                int j = Random.Range(0, map.hexsArray[i].Length - 1);
-                if (!map.hexsArray[i][j].isBusy&&map.hexsArray[i][j].Type.TickFireChanse > 0&& map.hexsArray[i][j].effect == null)
-                {
-                    hex = map.hexsArray[i][j];
-                }
+
+            Hexagon[] arrayPotential = potentialBurn.ToArray();
+            Hexagon hex = arrayPotential[Random.Range(0, arrayPotential.Length - 1)];
+            if (hex != null)
+            {                
+                hex.eventState.setFire();
+                Vector3 pos = hex.model.position;
+                Transform model = Instantiate(hex.eventState.currentType.model) as Transform;
+                hex.effect = model;
+                model.parent = effects;
+                model.position = pos;
+                inFire++;
+                canFire--;
             }
-            inFire++;
-            canFire--;
-            hex.eventState.setFire();
-            Vector3 pos = hex.model.position;
-            Transform model = Instantiate(hex.eventState.currentType.model) as Transform;
-            hex.effect = model;
-            model.parent = effects;
-            model.position = pos;
         }
         isAvalible = false;
     }
     private void Update()
     {
-        if ((position + Vector3.up - player.position).magnitude > 0.01)
+        if (hasChanged)
+        {
+            steps.text = stepCounter + " STEPS";
+            hasChanged = false;
+        }
+        if (canRotate&&(position + Vector3.up - player.position).magnitude > 0.01)
         {
             player.rotation = Quaternion.LookRotation(position + Vector3.up - player.position);
         }
@@ -223,16 +265,31 @@ public class stepController : MonoBehaviour
 
         if (isAvalible)
         {
+
+            for (int i = 0; i<map.hexsArray.Length; i++)
+            {
+                for(int j = 0; j < map.hexsArray[i].Length; j++)
+                {
+                    if (map.hexsArray[i][j].effect!=null && map.hexsArray[i][j].effect.name == "smoke(Clone)")
+                    {
+                        for (int k = 0; k< map.hexsArray[i][j].effect.childCount; k++)
+                        {
+                            Destroy(map.hexsArray[i][j].effect.GetChild(k).gameObject);
+                        }
+                    }
+                }
+            }
             if (canBurn < 2)
             {
-                WIN = false;
                 winScreen.SetActive(true);
                 winText.text = SCORE + " POINTS";
+                return;
             }
             if (fired && lastHex != null)
             {
                 lastHex.eventState.currentType = null;
                 Destroy(lastHex.effect.gameObject);
+                lastHex.effect = null;
                 fired = false;
                 inFire--;
                 canFire++;
@@ -254,8 +311,11 @@ public class stepController : MonoBehaviour
 
     static public void CanGoNext()
     {
+        canRotate = true;
         if (wait > 0)
         {
+            hasChanged = true;
+            stepCounter++;
             wait = wait - 1;
             if (wait == 0)
             {
