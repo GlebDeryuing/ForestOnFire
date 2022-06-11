@@ -587,6 +587,7 @@ GameObject:
   - component: {fileID: 291176748}
   - component: {fileID: 291176750}
   - component: {fileID: 291176749}
+  - component: {fileID: 291176751}
   m_Layer: 5
   m_Name: header settings
   m_TagString: Untagged
@@ -634,8 +635,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 552f49b0583c3cf43b91e0d11fd15d14, type: 3}
-    m_FontSize: 24
+    m_Font: {fileID: 12800000, guid: 2f3ec036fd789ee47a5bd592e5e4510b, type: 3}
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -655,6 +656,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291176747}
   m_CullTransparentMesh: 1
+--- !u!114 &291176751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291176747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97031a830558164785ebd2c7f9e04e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ruText: "\u041B\u0415\u0421 \u0412 \u041E\u0413\u041D\u0415!"
+  enText: FOREST IS FIRED!
 --- !u!1 &299923324
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,6 +884,7 @@ GameObject:
   - component: {fileID: 346099581}
   - component: {fileID: 346099583}
   - component: {fileID: 346099582}
+  - component: {fileID: 346099584}
   m_Layer: 5
   m_Name: text
   m_TagString: Untagged
@@ -916,9 +932,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: a05083955dd4b7c46acdb45561136b82, type: 3}
+    m_Font: {fileID: 12800000, guid: bfe8aa20f884c2949b7c807a80fef4cf, type: 3}
     m_FontSize: 50
-    m_FontStyle: 1
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 60
@@ -939,6 +955,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 346099580}
   m_CullTransparentMesh: 1
+--- !u!114 &346099584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346099580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97031a830558164785ebd2c7f9e04e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ruText: "\u0412\u0435\u0441\u044C \u043B\u0435\u0441 \u0441\u0433\u043E\u0440\u0435\u043B
+    \u0434\u043E \u0442\u043B\u0430! \u0422\u044B \u0441\u0434\u0435\u043B\u0430\u043B
+    \u0432\u0441\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0435 \u0438
+    \u043D\u0430\u0431\u0440\u0430\u043B"
+  enText: All forest is burned to the ground... You did your best and get
 --- !u!1 &378013590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2694,6 +2727,7 @@ GameObject:
   - component: {fileID: 1401334745}
   - component: {fileID: 1401334747}
   - component: {fileID: 1401334746}
+  - component: {fileID: 1401334748}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2741,8 +2775,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 552f49b0583c3cf43b91e0d11fd15d14, type: 3}
-    m_FontSize: 16
+    m_Font: {fileID: 12800000, guid: 2f3ec036fd789ee47a5bd592e5e4510b, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2762,6 +2796,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401334744}
   m_CullTransparentMesh: 1
+--- !u!114 &1401334748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401334744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97031a830558164785ebd2c7f9e04e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ruText: "\u041C\u0415\u041D\u042E"
+  enText: MENU
 --- !u!1 &1472234471
 GameObject:
   m_ObjectHideFlags: 0
@@ -2864,6 +2912,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1071978189}
     m_Modifications:
+    - target: {fileID: 630691036238820589, guid: c926ce447a02da341a5a160d754611a7, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: bfe8aa20f884c2949b7c807a80fef4cf, type: 3}
+    - target: {fileID: 630691036238820589, guid: c926ce447a02da341a5a160d754611a7, type: 3}
+      propertyPath: m_FontData.m_AlignByGeometry
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6152330575743060158, guid: c926ce447a02da341a5a160d754611a7, type: 3}
       propertyPath: m_Name
       value: Panel
@@ -3072,6 +3128,7 @@ GameObject:
   - component: {fileID: 1567621188}
   - component: {fileID: 1567621190}
   - component: {fileID: 1567621189}
+  - component: {fileID: 1567621191}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -3119,8 +3176,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 552f49b0583c3cf43b91e0d11fd15d14, type: 3}
-    m_FontSize: 16
+    m_Font: {fileID: 12800000, guid: 2f3ec036fd789ee47a5bd592e5e4510b, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -3140,6 +3197,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567621187}
   m_CullTransparentMesh: 1
+--- !u!114 &1567621191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567621187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97031a830558164785ebd2c7f9e04e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ruText: "\u0421\u041B\u0415\u0414. \u0428\u0410\u0413"
+  enText: NEXT STEP
 --- !u!1 &1708029735
 GameObject:
   m_ObjectHideFlags: 0
@@ -3230,6 +3301,7 @@ GameObject:
   - component: {fileID: 1771185405}
   - component: {fileID: 1771185407}
   - component: {fileID: 1771185406}
+  - component: {fileID: 1771185408}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -3277,8 +3349,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 552f49b0583c3cf43b91e0d11fd15d14, type: 3}
-    m_FontSize: 16
+    m_Font: {fileID: 12800000, guid: 2f3ec036fd789ee47a5bd592e5e4510b, type: 3}
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -3298,6 +3370,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771185404}
   m_CullTransparentMesh: 1
+--- !u!114 &1771185408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771185404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97031a830558164785ebd2c7f9e04e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ruText: "\u0417\u0410\u041A\u0420\u042B\u0422\u042C"
+  enText: CLOSE
 --- !u!1 &1862657408
 GameObject:
   m_ObjectHideFlags: 0

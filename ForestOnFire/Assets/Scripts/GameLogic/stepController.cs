@@ -42,15 +42,37 @@ public class stepController : MonoBehaviour
 
     public Transform secondaryGrid;
 
-    string[] eventsReasons = {"peat spontaneous combustion",
+    string[] eventsReasons;
+    string[] eventsReasonsEng = {"peat spontaneous combustion",
         "unextracted cigarette",
         "child's pranks",
         "family picnic with BBQ",
         "intentional arson",
         "careless burning of garbage" };
+    string[] eventsReasonsRu = {"самовозгорания травы",
+        "незатушенной сигареты",
+        "детской шалости",
+        "семейного пикника с шашлыками",
+        "умышленного поджога",
+        "неосторожного сжигания мусора" };
+    string eventStartReason;
+    string eventStartReasonEng = " caught fired due to an ";
+    string eventStartReasonRu = " загорелся из-за ";
 
     private void Start()
     {
+        int lang = PlayerPrefs.GetInt("LangSetting", 1);
+        if (lang == 0)
+        {
+            eventsReasons = eventsReasonsRu;
+            eventStartReason = eventStartReasonRu;
+        }
+        else
+        {
+            eventsReasons = eventsReasonsEng;
+            eventStartReason = eventStartReasonEng;
+        }
+
         canBurn = 0;
         canFire = 0;
         burned = 0;
@@ -86,7 +108,7 @@ public class stepController : MonoBehaviour
                 if (map.hexsArray[i][j].Type.TickFireChanse > 0)
                 {
                     canBurn++;
-                    infoSay("HEX " + i + "/" + j + " caught fired due to an " + eventsReasons[Random.Range(0, eventsReasons.Length - 1)] + ".", infoText, infoPanelAnimator);
+                    infoSay("HEX " + i + "/" + j + eventStartReason + eventsReasons[Random.Range(0, eventsReasons.Length - 1)] + ".", infoText, infoPanelAnimator);
                 }
             }
         }
@@ -167,7 +189,7 @@ public class stepController : MonoBehaviour
                         map.hexsArray[i][j].effect = model;
                         model.parent = effects;
                         model.position = pos;
-                        infoSay("HEX " + i + "/" + j + " caught fired due to an " + eventsReasons[Random.Range(0, eventsReasons.Length - 1)] + ".", infoText, infoPanelAnimator);
+                        infoSay("HEX " + i + "/" + j + eventStartReason + eventsReasons[Random.Range(0, eventsReasons.Length - 1)] + ".", infoText, infoPanelAnimator);
                     }
                 }
                 else if (map.hexsArray[i][j].effect != null&&map.hexsArray[i][j].eventState.currentType.name == "fire")

@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 public class Settings : MonoBehaviour
 {
     public GameObject settings;
-    private bool isDay = true, isHigh = true;
-    public GameObject day, graphic;
-    public GameObject daybg, graphicbg;
-    private Button[] allDays = new Button[2], allGrahpic = new Button[2];
+    private bool isDay = true, isHigh = true, isEng = true;
+    public GameObject day, graphic, lang;
+    public GameObject daybg, graphicbg, langbg;
+    private Button[] allDays = new Button[2], allGrahpic = new Button[2], allLang = new Button[2];
 
     private float lastSave = 1f, newValue = 1f;
     public AudioSource[] sounds;
@@ -18,14 +18,26 @@ public class Settings : MonoBehaviour
 
     public Light light;
     public Image skybg;
+
+    public GameObject howtoplay;
+
+    public GameObject[] allDaysGO, allGraphicsGO, allLangGO;
+
+    void OnEnable()
+    {
+        updateLang();
+    }
+
     void Start()
-    {    
-        GameObject[] allDaysGO = GameObject.FindGameObjectsWithTag("daysettings");
-        GameObject[] allGraphicsGO = GameObject.FindGameObjectsWithTag("graphicsettings");
+    {
+        updateLang();
+        howtoplay.SetActive(false);
+
         for (int i = 0; i < allDaysGO.Length; i++)
         {
-            allDays.SetValue(allDaysGO[i].GetComponent<Button>(),i);
+            allDays.SetValue(allDaysGO[i].GetComponent<Button>(), i);
             allGrahpic.SetValue(allGraphicsGO[i].GetComponent<Button>(), i);
+            allLang.SetValue(allLangGO[i].GetComponent<Button>(), i);
         }
         settings.SetActive(false);
 
@@ -37,6 +49,15 @@ public class Settings : MonoBehaviour
         else
         {
             PlayerPrefs.SetInt("GraphicSetting", 1);
+        }
+        int templang = PlayerPrefs.GetInt("LangSetting", -1);
+        if (templang != -1)
+        {
+            setLang(templang == 1 ? true : false);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("LangSetting", 1);
         }
         int tempday = PlayerPrefs.GetInt("DaySetting", -1);
         if (tempday != -1)
@@ -58,7 +79,7 @@ public class Settings : MonoBehaviour
         }
         saveSettings();
 
-        for (int i = 0; i<sounds.Length; i++)
+        for (int i = 0; i < sounds.Length; i++)
         {
             sounds[i].volume = lastSave;
         }
@@ -112,6 +133,26 @@ public class Settings : MonoBehaviour
         }
     }
 
+    public void setLang (bool val)
+    {
+        if (val)
+        {
+            isEng = true;
+            allLang[0].GetComponentInChildren<Text>().color = Color.white;
+            allLang[1].GetComponentInChildren<Text>().color = new Color32(255, 128, 0, 255);
+            langbg.transform.localPosition = new Vector3(-160f, 0);         
+            return;
+        }
+        else
+        {
+            isEng = false;
+            allLang[1].GetComponentInChildren<Text>().color = Color.white;
+            allLang[0].GetComponentInChildren<Text>().color = new Color32(255, 128, 0, 255);
+            langbg.transform.localPosition = new Vector3(160f, 0);
+            return;
+        }        
+    }
+
     public void saveSettings()
     {
         Debug.Log(newValue);
@@ -124,11 +165,36 @@ public class Settings : MonoBehaviour
         }
         lastSave = newValue;
         PlayerPrefs.SetFloat("Volume", newValue);
+
+        PlayerPrefs.SetInt("LangSetting", isEng ? 1 : 0);
+        LocalizedText[] allLocalized = LocalizedText.getAll();
+        for (int i = 0; i < allLocalized.Length; i++)
+        {
+            allLocalized[i].translateToEng(isEng);
+        }
+
+    }
+
+    public void updateLang()
+    {
+        
+        int temp = PlayerPrefs.GetInt("LangSetting", -1);
+        Debug.Log(temp+" lang");
+        if (temp != -1)
+        {
+            bool isTempEng = temp == 1 ? true : false;
+            LocalizedText[] allLocalized = LocalizedText.getAll();
+            for (int i = 0; i < allLocalized.Length; i++)
+            {
+                allLocalized[i].translateToEng(isTempEng);
+            }
+        }
     }
 
     public void exit()
     {
         setDay(PlayerPrefs.GetInt("DaySetting") ==1 ? true : false);
+        setLang(PlayerPrefs.GetInt("LangSetting") == 1 ? true : false);
         setGraphic(PlayerPrefs.GetInt("GraphicSetting") ==1 ? true : false);
         for (int i = 0; i < sounds.Length; i++)
         {

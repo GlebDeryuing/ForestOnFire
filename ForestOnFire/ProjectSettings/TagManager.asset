@@ -13,6 +13,7 @@ TagManager:
   - graphicsettings
   - graphicbg
   - diffsettings
+  - langsettings
   layers:
   - Default
   - TransparentFX

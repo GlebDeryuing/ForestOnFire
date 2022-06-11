@@ -32,6 +32,7 @@ public class Play : MonoBehaviour
     public void saveAndStart()
     {
         PlayerPrefs.SetInt("Difficulty", gameDifficulty);
+        LocalizedText.getAll(false);
         SceneManager.LoadScene("SampleScene");
     }
 }

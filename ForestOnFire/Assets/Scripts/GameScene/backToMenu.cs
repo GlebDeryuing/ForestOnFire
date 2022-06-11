@@ -7,6 +7,7 @@ public class backToMenu : MonoBehaviour
 {
     public void goBack()
     {
+        LocalizedText.getAll(false);
         SceneManager.LoadScene("MainMenu");
     }
 }
